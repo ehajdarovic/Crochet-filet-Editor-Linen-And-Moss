@@ -6,7 +6,8 @@ Features include dynamic grid scaling (up to 100x100) with offscreen double-buff
 
 ![Linen & Moss Page](assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png)
 
----
+----------------------------------------------------------------------------------
+![Full View - Linen & Moss Page](assets/Linen_and_Moss—Digital_Textile_Ecology.pdf)
 
 ## 🎨 Three Distinct Editions
 
