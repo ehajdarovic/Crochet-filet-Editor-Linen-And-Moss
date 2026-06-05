@@ -12,7 +12,9 @@ Features include dynamic grid scaling (up to 100x100) with offscreen double-buff
 
 Linen & Moss is structured to provide three unique interactive experiences:
 1. **Root Engine (`/`)**: Photographic Tile editor rendering high-fidelity woven thread and yarn texture tiles (both open and filled cells) on a light/dark organic background.
-2. **Ecology Version 2 (`/v2/`)**: Procedural Yarn Curve editor rendering soft, winding green thread curves simulating organic growth, connections, and live-tension warping.
+
+2. **Ecology Version 2 (`/v2/`)**: Procedural Yarn Curve editor rendering soft, winding green thread curves simulating organic growth, connections, and live-tension warping. 
+![Linen & Moss Blueprint Example](assets/linen_moss_blueprint-1.png)
 3. **Heritage Version 1 (`/v1/`)**: Whimsical Y2K-inspired translucent aesthetic edition with lightweight pixel layouts.
 
 ---
