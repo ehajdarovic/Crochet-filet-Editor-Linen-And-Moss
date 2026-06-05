@@ -53,9 +53,3 @@ Your local development server is running in the background at **`http://localhos
 * Generates a high-contrast technical chart with empty cells colored white and filled cells colored light moss green (`#A2B59B`).
 * Automatically numbers margins: bottom-to-top on the left and right sides, and left-to-right on the top and bottom.
 * Overlays thicker lines every 5 cells as a visual counting aid, aligning with typical crochet pattern charts.
-
----
-
-## 💾 GitHub Packaging Done
-* A comprehensive project `README.md` has been added to the root directory explaining the architecture, features, and setup.
-* The screenshot asset (`linen_moss_blueprint-1.png`) is packaged in the `assets/` folder to serve as the project banner on your GitHub page.
