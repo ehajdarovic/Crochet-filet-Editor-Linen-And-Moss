@@ -7,7 +7,7 @@ The horse pattern shown here is the project's point of departure. Every pattern 
 ![Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png)
 
 ----------------------------------------------------------------------------------
-![Full View - Linen & Moss Page](assets/Linen_and_Moss—Digital_Textile_Ecology.pdf)
+![Full View - Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss—Digital_Textile_Ecology.pdf)
 
 ## 🎨 Three Distinct Editions
 
