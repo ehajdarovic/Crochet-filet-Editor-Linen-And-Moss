@@ -4,21 +4,25 @@
 
 The horse pattern shown here is the project's point of departure. Every pattern begins with something seen, borrowed, remembered, or admired. Crochet filet has long evolved through reinterpretation—motifs passed between hands, altered through repetition, and reshaped by individual decisions.
 
-![Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png)
+<img src="crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png" width="500" title="Linen & Moss Page]"/>
+
+<img src="crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology.pdf" width="500" title="Full Linen & Moss Page]"/>
 
 ----------------------------------------------------------------------------------
-![Full View - Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss—Digital_Textile_Ecology.pdf)
 
 ## 🎨 Three Distinct Editions
 
 Linen & Moss was made with 3 iterative versions (root being the final version) that provide three unique interactive experiences:
 1. **Root Engine (`/`)**: Photographic Tile editor rendering high-fidelity woven thread and yarn texture tiles (both open and filled cells) on a light/dark organic background.
-![Linen & Moss Blueprint Example](crochet-filet-editor/assets/linen_moss_blueprint-2.png)
+<img src="crochet-filet-editor/assets/linen_moss_blueprint-2.png" width="500" title="Linen & Moss Blueprint Example]"/>
+
 2. **Ecology Version 2 (`/v2/`)**: Procedural Yarn Curve editor rendering soft, winding green thread curves simulating organic growth, connections, and live-tension warping. 
-![Linen & Moss Blueprint Example](crochet-filet-editor/assets/linen_moss_blueprint-1.png)
+<img src="crochet-filet-editor/assets/linen_moss_blueprint-1.png" width="500" title="Linen & Moss Blueprint Example]"/>
+
 3. **Heritage Version 1 (`/v1/`)**: Whimsical Y2K-inspired translucent aesthetic edition with lightweight pixel layouts.
-![Linen & Moss Blueprint Example](crochet-filet-editor/assets/linen_moss_blueprint-3.png)
----
+<img src="crochet-filet-editor/assets/linen_moss_blueprint-3.png" width="500" title="Linen & Moss Blueprint Example]"/>
+
+----------------------------------------------------------------------------------
 
 ## ✨ Key Interactive Features
 
