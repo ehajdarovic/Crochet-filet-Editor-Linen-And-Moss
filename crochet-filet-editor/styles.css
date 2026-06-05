@@ -1,0 +1,593 @@
+/* ==========================================================================
+   VERSION 2 - DIGITAL TEXTILE ECOLOGY DESIGN SYSTEM
+   ========================================================================== */
+
+:root[data-theme="light"] {
+  --bg-base: #E8E5DF;         /* Foggy linen */
+  --bg-overlay: rgba(247, 245, 240, 0.75); /* Soft aged ecru */
+  --text-primary: #2D322B;    /* Charcoal sage */
+  --text-secondary: #5C6456;  /* Dry grass/moss */
+  --accent-moss: #4A563E;     /* Deep wet moss */
+  --accent-moss-light: #7D8F70; /* Soft lichen green */
+  --border-color: rgba(74, 86, 62, 0.18);
+  --shadow-soft: 0 12px 40px rgba(45, 50, 43, 0.04), 0 2px 10px rgba(45, 50, 43, 0.02);
+  --loom-bg: #EAE7E1;
+  --slider-track: #D4CEC4;
+  --active-glow: rgba(125, 143, 112, 0.3);
+}
+
+:root[data-theme="dark"] {
+  --bg-base: #131711;         /* Deep moss shadows */
+  --bg-overlay: rgba(24, 29, 21, 0.85); /* Dark spruce bark */
+  --text-primary: #E5E3D8;    /* Fresh unbleached linen */
+  --text-secondary: #9BA493;  /* Dusty sage */
+  --accent-moss: #8EA17F;     /* Glowing dry moss */
+  --accent-moss-light: #C4D3B9; /* Light silver lichen */
+  --border-color: rgba(142, 161, 127, 0.25);
+  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.45);
+  --loom-bg: #1B2117;
+  --slider-track: #2A3324;
+  --active-glow: rgba(142, 161, 127, 0.35);
+}
+
+/* Base resets & layouts */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 300;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+              color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Microscopic Linen Warp-and-Weft Texture Overlay */
+.linen-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.05;
+  background-image: 
+    linear-gradient(90deg, var(--text-primary) 0.5px, transparent 0.5px),
+    linear-gradient(0deg, var(--text-primary) 0.5px, transparent 0.5px);
+  background-size: 5px 5px;
+}
+
+/* Fixed background for particles rendering */
+#ambient-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ecology-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  width: 95%;
+  position: relative;
+  z-index: 3;
+}
+
+/* Editorial Typography */
+.editorial-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.logo-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 4rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.logo-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.decor-line {
+  width: 80px;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 1.8rem auto 0;
+}
+
+/* Workspace Layout */
+.workspace-layout {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Left Column: Canvas Loom Container */
+.loom-section {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.canvas-loom-frame {
+  position: relative;
+  background-color: var(--loom-bg);
+  border: 1px solid var(--border-color);
+  padding: 2.2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1;
+  animation: sway 18s ease-in-out infinite;
+  transform-origin: center top;
+  transition: background-color 0.8s, border-color 0.8s;
+}
+
+#canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#canvas-container canvas {
+  border-radius: 6px;
+  display: block;
+  object-fit: contain;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='4' y1='16' x2='28' y2='16' stroke='%234A563E' stroke-width='1' shape-rendering='crispEdges'/%3E%3Cline x1='16' y1='4' x2='16' y2='28' stroke='%234A563E' stroke-width='1' shape-rendering='crispEdges'/%3E%3Crect x='15' y='15' width='2' height='2' fill='%234A563E' shape-rendering='crispEdges'/%3E%3C/svg%3E") 16 16, crosshair;
+}
+
+[data-theme="dark"] #canvas-container canvas {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cline x1='4' y1='16' x2='28' y2='16' stroke='%238EA17F' stroke-width='1' shape-rendering='crispEdges'/%3E%3Cline x1='16' y1='4' x2='16' y2='28' stroke='%238EA17F' stroke-width='1' shape-rendering='crispEdges'/%3E%3Crect x='15' y='15' width='2' height='2' fill='%238EA17F' shape-rendering='crispEdges'/%3E%3C/svg%3E") 16 16, crosshair;
+}
+
+/* Tapestry gentle swaying motion animation */
+@keyframes sway {
+  0% { transform: rotate(0deg) translate(0, 0); }
+  33% { transform: rotate(0.3deg) translate(2px, -1px); }
+  66% { transform: rotate(-0.2deg) translate(-1px, 1px); }
+  100% { transform: rotate(0deg) translate(0, 0); }
+}
+
+/* Right Column: Parameters Dashboard */
+.parameters-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.parameter-card {
+  background-color: var(--bg-overlay);
+  border: 1px solid var(--border-color);
+  padding: 1.8rem;
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-soft);
+  transition: background-color 0.8s, border-color 0.8s;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+
+.param-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+/* Inputs & Controls styling */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.tactile-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  padding: 0.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.tactile-input:focus {
+  outline: none;
+  border-color: var(--accent-moss);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tactile-checkbox {
+  accent-color: var(--accent-moss);
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: transparent;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.value-readout {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--accent-moss);
+}
+
+.tactile-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--slider-track);
+  outline: none;
+  border-radius: 2px;
+  margin: 1rem 0;
+}
+
+.tactile-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-moss);
+  cursor: pointer;
+  border: 2px solid var(--bg-base);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.tactile-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: var(--accent-moss-light);
+}
+
+/* Buttons System */
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.tactile-btn, .tactile-btn-primary, .tactile-btn-small {
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  outline: none;
+}
+
+.tactile-btn {
+  padding: 0.7rem 1rem;
+  font-size: 0.75rem;
+}
+
+.tactile-btn:hover {
+  background-color: var(--accent-moss);
+  color: var(--bg-base);
+  border-color: var(--accent-moss);
+  box-shadow: 0 4px 12px var(--active-glow);
+}
+
+.tactile-btn-primary {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  border-color: var(--accent-moss);
+  background-color: var(--accent-moss);
+  color: var(--bg-base);
+}
+
+.tactile-btn-primary:hover {
+  background-color: var(--accent-moss-light);
+  border-color: var(--accent-moss-light);
+  box-shadow: 0 6px 16px var(--active-glow);
+  transform: translateY(-1px);
+}
+
+.tactile-btn-secondary {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.tactile-btn-secondary:hover {
+  background-color: var(--accent-moss);
+  border-color: var(--accent-moss);
+  color: var(--bg-base);
+  box-shadow: 0 4px 12px var(--active-glow);
+  transform: translateY(-1px);
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.tactile-btn-small {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+}
+
+.tactile-btn-small:hover:not(:disabled) {
+  border-color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.tactile-btn-small:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Organic Dropzone */
+.tactile-dropzone {
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  padding: 2.2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.tactile-dropzone:hover, .tactile-dropzone.dragover {
+  border-color: var(--accent-moss);
+  background-color: rgba(142, 161, 127, 0.05);
+}
+
+.dropzone-text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+/* Floating Horse Silhouette Reset Button */
+.horse-silhouette-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-overlay);
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 10;
+}
+
+.horse-silhouette-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  background-color: var(--accent-moss);
+  border-color: var(--accent-moss);
+}
+
+.horse-svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--text-primary);
+  transition: fill 0.4s;
+}
+
+.horse-silhouette-btn:hover .horse-svg {
+  fill: var(--bg-base);
+}
+
+/* Concept Section */
+.editorial-concept {
+  margin: 6rem auto 2rem;
+  max-width: 650px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 3rem;
+}
+
+.concept-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+}
+
+.concept-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Ambient Spindle Spool theme switch button */
+.theme-spindle-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--bg-overlay);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              background-color 0.8s, border-color 0.8s;
+  outline: none;
+}
+
+.theme-spindle-btn:hover {
+  transform: rotate(180deg) scale(1.1);
+  background-color: var(--accent-moss);
+  border-color: var(--accent-moss);
+}
+
+.spindle-graphic {
+  position: relative;
+  width: 22px;
+  height: 22px;
+}
+
+.sun-icon, .moon-icon {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  fill: none;
+  stroke: var(--text-primary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.6s, stroke 0.8s, transform 0.6s;
+}
+
+.sun-icon { opacity: 1; }
+.moon-icon { opacity: 0; transform: rotate(-30deg) scale(0.8); }
+
+:root[data-theme="dark"] .sun-icon {
+  opacity: 0;
+  transform: rotate(30deg) scale(0.8);
+}
+:root[data-theme="dark"] .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-spindle-btn:hover .sun-icon, 
+.theme-spindle-btn:hover .moon-icon {
+  stroke: var(--bg-base);
+}
+
+/* Responsive grid layout */
+@media (max-width: 900px) {
+  .workspace-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .editorial-header {
+    margin-bottom: 3rem;
+  }
+  
+  .logo-title {
+    font-size: 2.8rem;
+  }
+}
+
+/* Weave Duplicator Selection Banner & Tool styles */
+.ecology-banner {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-overlay);
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 1.4rem;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  z-index: 99;
+  box-shadow: var(--shadow-soft);
+  animation: float-banner 4s ease-in-out infinite;
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@keyframes float-banner {
+  0% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -4px); }
+  100% { transform: translate(-50%, 0px); }
+}
+
+#ecology-banner-text {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-moss);
+  font-weight: 500;
+}
+
+/* Select motif active button accent */
+.tactile-btn.active {
+  background-color: var(--accent-moss-light);
+  color: var(--bg-base);
+  border-color: var(--accent-moss-light);
+  box-shadow: 0 4px 12px var(--active-glow);
+}
+

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linen & Moss — Digital Textile Ecology</title>
+  <meta name="description" content="An interactive filet crochet editor rendering organic thread networks that grow like natural organisms.">
+  
+  <!-- Modern Editorial & Interface Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css?v=3">
+  
+  <!-- Load p5.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body>
+
+  <!-- Ambient background canvas for floating dust particles and thread lint -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Textured linen background overlay -->
+  <div class="linen-overlay"></div>
+
+  <!-- Main Ecosystem Layout -->
+  <main class="ecology-container">
+    
+    <!-- Title / Editorial Header -->
+    <header class="editorial-header">
+      <h1 class="logo-title">Linen & Moss</h1>
+      <p class="logo-subtitle">an interactive digital textile ecology</p>
+      <div class="decor-line"></div>
+    </header>
+
+    <div class="workspace-layout">
+      
+      <!-- Left Column: The Weaving Loom (Canvas Container) -->
+      <section class="loom-section">
+        <div class="canvas-loom-frame">
+          <!-- Floating Loom Instruction Banner -->
+          <div id="ecology-banner" class="ecology-banner" style="display: none;">
+            <span id="ecology-banner-text">Drag to frame a motif</span>
+          </div>
+          <div id="canvas-container">
+            <!-- p5.js canvas will render here -->
+          </div>
+          
+          <!-- Rearing Horse Silhouette Reset Button -->
+          <button id="horse-reset-icon-btn" class="horse-silhouette-btn" title="Reset to Original Weaving">
+            <svg viewBox="0 0 100 100" class="horse-svg">
+              <path d="M 45 80 C 45 75, 48 70, 52 68 C 55 66, 60 62, 62 55 C 64 50, 68 45, 72 43 C 78 40, 80 35, 78 30 C 76 25, 70 24, 65 26 C 60 28, 55 22, 58 15 C 60 10, 52 8, 48 12 C 44 16, 42 22, 45 28 C 42 32, 38 35, 34 32 C 30 28, 25 32, 28 38 C 30 42, 26 48, 22 45 C 18 42, 14 46, 17 50 C 20 54, 22 62, 18 68 C 14 74, 20 78, 26 76 C 30 75, 33 78, 32 82 C 30 88, 38 92, 42 86 C 44 83, 45 80, 45 80 Z" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right Column: Control Panel / Fiber Parameters -->
+      <section class="parameters-section">
+        
+        <!-- Grid Dimensions Group -->
+        <div class="parameter-card">
+          <h2 class="section-title">Grid Density</h2>
+          <div class="input-grid">
+            <div class="input-item">
+              <label for="cols-input" class="param-label">Warp (Cols)</label>
+              <input type="number" id="cols-input" min="10" max="100" value="60" class="tactile-input">
+            </div>
+            <div class="input-item">
+              <label for="rows-input" class="param-label">Weft (Rows)</label>
+              <input type="number" id="rows-input" min="10" max="100" value="60" class="tactile-input">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Extraction Sensitivity Group -->
+        <div class="parameter-card">
+          <div class="slider-header">
+            <label for="threshold-slider" class="param-label">Fiber Growth Threshold</label>
+            <span class="value-readout" id="threshold-val">120</span>
+          </div>
+          <input type="range" id="threshold-slider" min="0" max="255" value="120" class="tactile-slider">
+        </div>
+
+        <!-- Tool Actions -->
+        <div class="parameter-card">
+          <h2 class="section-title">Ecology Controls</h2>
+          
+          <div class="action-grid">
+            <button class="tactile-btn" id="invert-btn">Invert Weaving</button>
+            <button class="tactile-btn" id="clear-btn">Clear Canvas</button>
+            <button class="tactile-btn" id="fill-btn">Fill Canvas</button>
+          </div>
+
+          <!-- History Stack Buttons -->
+          <div class="history-row">
+            <button class="tactile-btn-small" id="undo-btn" disabled>Undo</button>
+            <button class="tactile-btn-small" id="redo-btn" disabled>Redo</button>
+          </div>
+
+          <!-- Weave Duplicator Toolbar -->
+          <div class="motif-toolbar" style="margin-top: 1.2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <span class="param-label" style="margin-bottom: 0.8rem;">Weave Duplicator</span>
+            <div class="action-grid">
+              <button class="tactile-btn" id="select-btn">Select Motif</button>
+              <button class="tactile-btn" id="rotate-btn" style="display: none;">Rotate (R)</button>
+              <button class="tactile-btn" id="reflect-btn" style="display: none;">Reflect (F)</button>
+              <button class="tactile-btn" id="cancel-btn" style="display: none;">Cancel (Esc)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Upload Dropzone -->
+        <div class="parameter-card">
+          <h2 class="section-title">Organic Upload</h2>
+          <div id="dropzone" class="tactile-dropzone">
+            <span class="dropzone-text">Drop image to weave customized fibers</span>
+            <input type="file" id="file-input" style="display: none;" accept="image/*">
+          </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="parameter-card text-center" style="display: flex; flex-direction: column; gap: 0.8rem; align-items: center;">
+          <button class="tactile-btn-primary" id="download-btn">Export Thread Blueprint</button>
+          <button class="tactile-btn-primary" id="download-numbered-btn">Export Numbered Blueprint</button>
+        </div>
+
+      </section>
+      
+    </div>
+
+    <!-- Editorial Concept Note -->
+    <article class="editorial-concept">
+      <h3 class="concept-title">The Ecology of Fiber</h3>
+      <p class="concept-body">
+        Crochet filet is a binary language written in tension and space. In this environment, we treat the canvas not as a cold raster grid, but as a living linen membrane where individual crochet stitches behave like mycelial threads or lichen structures growing on organic soil. Warp and weft threads sway with ambient wind currents, and connections emerge dynamically where cells interlink.
+      </p>
+    </article>
+  </main>
+
+  <!-- Ambient Theme Switcher (Floating Spindle Icon) -->
+  <button id="theme-toggle-btn" class="theme-spindle-btn" aria-label="Toggle Ecology Ambient lighting">
+    <div class="spindle-graphic">
+      <svg class="sun-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="moon-icon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </div>
+  </button>
+
+  <!-- SVG Displacement Filter for tactile organic warp effects -->
+  <svg class="svg-filters" style="position: absolute; width: 0; height: 0; pointer-events: none;">
+    <defs>
+      <filter id="organic-cloth-displacement">
+        <!-- Fractal noise simulates linen texture threads -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+        <!-- Displaces pixels to warp outlines like hand-spun threads -->
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Main JavaScript File -->
+  <script src="editor.js?v=12"></script>
+</body>
+</html>

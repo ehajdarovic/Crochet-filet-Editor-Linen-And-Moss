@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lace & Code | Whimsical Filet Crochet Editor</title>
+  
+  <!-- Whimsical Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Henny+Penny&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css?v=3">
+  
+  <!-- Load p5.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body>
+
+  <!-- Background Twinkling Stars / Sparkles -->
+  <div class="stars-container" id="stars-container">
+    <svg class="sparkle-star" style="top: 8%; left: 12%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 25%; left: 88%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 55%; left: 6%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 82%; left: 92%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 42%; left: 94%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 68%; left: 15%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 12%; left: 82%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+    <svg class="sparkle-star" style="top: 88%; left: 22%;" viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>
+  </div>
+
+  <main class="container centered-layout">
+    
+    <!-- Centered Mysterious Title Sticker -->
+    <div class="sticker-badge-wrapper">
+      <div class="sticker-badge font-whimsical">Lace &amp; Code</div>
+    </div>
+
+    <!-- Centered Whimsical Editor Card -->
+    <div class="editor-workspace scalloped-border">
+      <div class="editor-header">
+        <div>
+          <h2 class="title-bubbly">Filet Crochet Compiler</h2>
+          <p class="subtitle-whimsical">Create your own binary lace or click the horse to restore the original work.</p>
+        </div>
+      </div>
+
+      <!-- Render Container for p5.js with Scalloped Outer Trim -->
+      <div class="canvas-outer-frame">
+        <div class="canvas-wrapper" id="canvas-container">
+          <!-- Canvas injected here by p5.js -->
+          
+          <!-- Tiny Floating Horse Silhouette Reset Button -->
+          <button id="horse-reset-icon-btn" class="horse-reset-fab" title="Reset to rearing horse silhouette">
+            <img src="assets/horse.png" alt="Rearing Horse Silhouette">
+          </button>
+        </div>
+      </div>
+
+      <!-- Drawing Mode Selector styled as cute toggle buttons -->
+      <div class="draw-mode-selector">
+        <button class="draw-mode-btn active" id="draw-filled-btn">
+          <img src="assets/filledTile.png" alt="Filled Tile">
+          <span>Closed Mesh (Stitch)</span>
+        </button>
+        <button class="draw-mode-btn" id="draw-open-btn">
+          <img src="assets/openTile.png" alt="Open Tile">
+          <span>Open Mesh (Space)</span>
+        </button>
+      </div>
+
+      <!-- Grid Control Fields (Columns, Rows, Threshold) -->
+      <div class="control-grid">
+        <div class="control-group">
+          <label class="control-label" for="cols-input">Columns (Width)</label>
+          <input type="number" id="cols-input" min="10" max="100" value="60">
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="rows-input">Rows (Height)</label>
+          <input type="number" id="rows-input" min="10" max="100" value="60">
+        </div>
+        <div class="control-group" style="grid-column: span 2;">
+          <label class="control-label" for="threshold-slider">
+            <span class="control-label-text">Silhouette Threshold</span>
+            <span class="control-value" id="threshold-val">120</span>
+          </label>
+          <div class="range-slider-wrapper">
+            <input type="range" id="threshold-slider" min="0" max="255" value="120">
+          </div>
+        </div>
+      </div>
+
+      <!-- History & Canvas Operations -->
+      <div class="button-row">
+        <button class="btn btn-icon" id="undo-btn" title="Undo" disabled>
+          <!-- Undo Icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+          </svg>
+        </button>
+        <button class="btn btn-icon" id="redo-btn" title="Redo" disabled>
+          <!-- Redo Icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/>
+          </svg>
+        </button>
+        <button class="btn" id="clear-btn">Clear All</button>
+        <button class="btn" id="fill-btn">Fill All</button>
+        <button class="btn" id="invert-btn">Invert</button>
+        <button class="btn btn-primary" id="export-btn" style="margin-left: auto;">
+          Download Chart
+        </button>
+      </div>
+
+      <!-- Custom Image Uploader -->
+      <div class="upload-area" id="upload-box">
+        <!-- Upload Cloud Icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+        </svg>
+        <p>Want to see another shape? Drag &amp; drop an image here</p>
+        <span>or click to browse from files</span>
+        <input type="file" id="file-input" accept="image/*">
+      </div>
+    </div>
+
+    <!-- Creative Technology Statement Section -->
+    <section class="philosophy-section">
+      <div class="philosophy-content">
+        <h3 class="title-cursive">The Binary Fabric</h3>
+        <div class="highlight-quote">
+          "Before the silicon chip, there was the spool of thread. In filet crochet, we compiled patterns stitch by stitch—inventing loops and spaces as the original 1s and 0s."
+        </div>
+        <p>
+          As a creative technologist, I see computation not just as a tool for screens, but as a continuation of age-old craft techniques. The Jacquard loom and punch-card memory systems are direct ancestors of modern computers, but the conceptual core goes even deeper into handcrafts. 
+        </p>
+        <p>
+          In <strong>Filet Crochet</strong>, the artist operates as a manual parser. Every block is composed of a rigid set of instructions (usually double crochets to form a solid "block", or double crochets separated by chains to form an open "space"). When these cells are aligned on a rectangular coordinate system, they compose complex raster images out of tension and space. 
+        </p>
+        <p>
+          This project exposes the logic of the hand. By taking the physical rearing horse artwork—built block-by-block with fine thread—and converting it back into a digital mesh, we complete a circle of representation. This editor acts as a compilation environment, translating physical pixels into digital code and back, letting users draw, manipulate thresholds, and export new templates for physical realization.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Theme Switcher FAB -->
+  <button class="theme-toggle-btn floating-theme-btn" id="theme-toggle" aria-label="Toggle Theme">
+    <svg class="sun" viewBox="0 0 24 24">
+      <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.01c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+    </svg>
+    <svg class="moon" viewBox="0 0 24 24">
+      <path d="M12.3 22c5.3 0 9.7-4.3 9.7-9.7 0-4.1-2.5-7.6-6.1-9.1-.5-.2-1.1.2-1 .8.9 3.5-.2 7.1-2.9 9.8-2.7 2.7-6.3 3.8-9.8 2.9-.6-.2-1 .4-.8 1 1.5 3.6 5 6.1 9 6.1z"/>
+    </svg>
+  </button>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Emelia Hajdarovic. Handcrafted in thread and Javascript.</p>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="editor.js?v=3"></script>
+</body>
+</html>
