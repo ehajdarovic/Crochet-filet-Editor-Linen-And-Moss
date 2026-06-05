@@ -1,8 +1,8 @@
 # Linen & Moss — Digital Textile Ecology
 
-**Linen & Moss** is an interactive filet crochet editor designed to bridge binary stitch logic with organic digital aesthetics. Rather than presenting a sterile pixel grid, the canvas simulates a tactile linen membrane where crochet stitches behave like mycelial threads or lichen structures growing in an ecosystem.
+**Linen & Moss** is an interactive filet crochet editor designed to bridge binary stitch logic with organic digital aesthetics. Rather than presenting a sterile pixel grid, the canvas simulates a tactile linen membrane where crochet stitches behave like mycelial threads or lichen structures growing in an ecosystem. Features include dynamic grid scaling (up to 100x100) with offscreen double-buffering for fluid 60 FPS editing, ambient particle animations, and multi-version aesthetics. 
 
-Features include dynamic grid scaling (up to 100x100) with offscreen double-buffering for fluid 60 FPS editing, ambient particle animations, and multi-version aesthetics.
+The horse pattern shown here is the project's point of departure. Every pattern begins with something seen, borrowed, remembered, or admired. Crochet filet has long evolved through reinterpretation—motifs passed between hands, altered through repetition, and reshaped by individual decisions.
 
 ![Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png)
 
