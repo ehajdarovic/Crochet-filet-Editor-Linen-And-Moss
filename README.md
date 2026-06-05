@@ -4,7 +4,7 @@
 
 Features include dynamic grid scaling (up to 100x100) with offscreen double-buffering for fluid 60 FPS editing, ambient particle animations, and multi-version aesthetics.
 
-![Linen & Moss Page](assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png)
+![Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png)
 
 ----------------------------------------------------------------------------------
 ![Full View - Linen & Moss Page](assets/Linen_and_Moss—Digital_Textile_Ecology.pdf)
@@ -13,11 +13,11 @@ Features include dynamic grid scaling (up to 100x100) with offscreen double-buff
 
 Linen & Moss was made with 3 iterative versions (root being the final version) that provide three unique interactive experiences:
 1. **Root Engine (`/`)**: Photographic Tile editor rendering high-fidelity woven thread and yarn texture tiles (both open and filled cells) on a light/dark organic background.
-![Linen & Moss Blueprint Example](assets/linen_moss_blueprint-2.png)
+![Linen & Moss Blueprint Example](crochet-filet-editor/assets/linen_moss_blueprint-2.png)
 2. **Ecology Version 2 (`/v2/`)**: Procedural Yarn Curve editor rendering soft, winding green thread curves simulating organic growth, connections, and live-tension warping. 
-![Linen & Moss Blueprint Example](assets/linen_moss_blueprint-1.png)
+![Linen & Moss Blueprint Example](crochet-filet-editor/assets/linen_moss_blueprint-1.png)
 3. **Heritage Version 1 (`/v1/`)**: Whimsical Y2K-inspired translucent aesthetic edition with lightweight pixel layouts.
-![Linen & Moss Blueprint Example](assets/linen_moss_blueprint-3.png)
+![Linen & Moss Blueprint Example](crochet-filet-editor/assets/linen_moss_blueprint-3.png)
 ---
 
 ## ✨ Key Interactive Features
