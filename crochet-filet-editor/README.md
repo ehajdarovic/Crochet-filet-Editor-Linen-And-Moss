@@ -52,33 +52,3 @@ npx http-server -p 8000
 ```bash
 python3 -m http.server 8000
 ```
-
----
-
-## 📦 Publishing to GitHub
-
-To upload this project to your GitHub account:
-
-1. Create a new, blank repository on [GitHub](https://github.com/new).
-2. Open your terminal in the project directory (`crochet-filet-editor`).
-3. Run the following commands to initialize Git, add files, commit, and push:
-
-```bash
-# Initialize git repository
-git init
-
-# Add all files to staging (including assets/ and sub-versions /v1, /v2)
-git add .
-
-# Create the initial commit
-git commit -m "Initial commit: Linen & Moss Filet Crochet Editor"
-
-# Rename default branch to main
-git branch -M main
-
-# Link to your remote GitHub repository (replace with your URL)
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
-
-# Push code to GitHub
-git push -u origin main
-```
