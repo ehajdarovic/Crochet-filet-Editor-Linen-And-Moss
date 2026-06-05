@@ -6,7 +6,7 @@ The horse pattern shown here is the project's point of departure. Every pattern 
 
 <img src="crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png" width="500" title="Linen & Moss Page]"/>
 
-![Full Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology.pdf)
+![Full Linen & Moss Page](crochet-filet-editor/assets/Linen_and_Moss—Digital_Textile_Ecology.pdf)
 
 ----------------------------------------------------------------------------------
 
