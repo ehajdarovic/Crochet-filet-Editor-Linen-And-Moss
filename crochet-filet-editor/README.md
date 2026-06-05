@@ -4,8 +4,6 @@
 
 Features include dynamic grid scaling (up to 100x100) with offscreen double-buffering for fluid 60 FPS editing, ambient particle animations, and multi-version aesthetics.
 
-![Linen & Moss — Digital Textile Ecology.pdf)
-
 ---
 
 ## 🎨 Three Distinct Editions
