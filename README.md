@@ -4,7 +4,7 @@
 
 The horse pattern shown here is the project's point of departure. Every pattern begins with something seen, borrowed, remembered, or admired. Crochet filet has long evolved through reinterpretation—motifs passed between hands, altered through repetition, and reshaped by individual decisions.
 
-<img src="crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.png" width="500" title="Linen & Moss Page]"/>
+<img src="crochet-filet-editor/assets/Linen_and_Moss-Digital_Textile_Ecology_Page.jpg" width="500" title="Linen & Moss Page]"/>
 
 ----------------------------------------------------------------------------------
 
